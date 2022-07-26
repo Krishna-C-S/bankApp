@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -15,9 +15,9 @@ acno=""
 pswd=""
 
 registerForm=this.fb.group({
-  acno:'',
-  pswd:'',
-  uname:''
+  acno:[''],
+  pswd:[''],
+  uname:['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]]
 })
   constructor(private ds:DataService, private router:Router,private fb:FormBuilder) { }
 
@@ -25,18 +25,27 @@ registerForm=this.fb.group({
   }
 
 register(){
-  var acno=this.acno
-  var uname=this.uname
-  var pswd=this.pswd
+  
+  var acno=this.registerForm.value.acno
+  var uname=this.registerForm.value.uname
+  var pswd=this.registerForm.value.pswd
 
-  const result= this.ds.register(uname,acno,pswd)
+  if(this.registerForm.valid){
+    console.log(this.registerForm.valid);
+    
+    const result= this.ds.register(uname,acno,pswd)
 
-  if(result){
-    alert("Successfully Registered")
-    this.router.navigateByUrl('')
+    if(result){
+      alert("Successfully Registered")
+      this.router.navigateByUrl('')
+    }
+    else{
+      alert("Already Existing User...Please Log In!!!")
+    }
+  
   }
   else{
-    alert("Already Existing User...Please Log In!!!")
+    alert("Invalid Form")
   }
 
 }
