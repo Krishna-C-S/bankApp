@@ -15,8 +15,8 @@ acno=""
 pswd=""
 
 registerForm=this.fb.group({
-  acno:[''],
-  pswd:[''],
+  acno:['',[Validators.required,Validators.pattern('[0-9]*')]],
+  pswd:['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*')]],
   uname:['',[Validators.required,Validators.pattern('[a-zA-Z ]*')]]
 })
   constructor(private ds:DataService, private router:Router,private fb:FormBuilder) { }

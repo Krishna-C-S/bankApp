@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 
@@ -18,7 +19,11 @@ acno=""
 pswd=""
   //database
 
-  constructor(private router:Router,private ds: DataService) { }
+loginForm=this.fb.group({
+  acno: ['',[Validators.required,Validators.pattern('[0-9]*')]],
+  pswd: ['',[Validators.required,Validators.pattern('[0-9a-zA-Z]*')]]
+})
+  constructor(private router:Router,private ds: DataService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
   }
@@ -41,17 +46,22 @@ pswdChange(event:any){
   // event binding
   // using ngModel
   login(){
-    var acno = this.acno
-    var pswd = this.pswd
+if(this.loginForm.valid) {
+  var acno = this.loginForm.value.acno
+  var pswd = this.loginForm.value.pswd
 
-    const result = this.ds.login(acno,pswd)
+  const result = this.ds.login(acno,pswd)
 
-    if(result){
-        alert("Login Successful")
-        this.router.navigateByUrl('dashboard')
-      }
-  }
+  if(result){
+      alert("Login Successful")
+      this.router.navigateByUrl('dashboard')
+    }
+}
+else{
+  alert("Invalid user credential!!!")
+}
 
+}   
   // template referencing variable
   // login(a:any,p:any){
   //   var acno = a.value

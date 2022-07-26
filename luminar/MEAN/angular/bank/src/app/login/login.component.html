@@ -16,7 +16,7 @@
                   
               </div>
               <div class="card-body">
-                  <form (ngSubmit)="login()">
+                  <form [formGroup]="loginForm" (ngSubmit)="login()">
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -25,18 +25,19 @@
                           <!-- event binding using $event (change)="acnoChange($event)" -->
                           <!-- template referencing variable #acno instead of (change)="acnoChange($event)" -->
                           <!-- two way binding-using ngModel name="acno" [(ngModel)] = "acno" instead of #acno -->
-                          <input type="text" class="form-control" name="acno" [(ngModel)] = "acno" [placeholder]="accno" id="login_accno" required>
-                          
+                          <input type="text" class="form-control" name="acno" formControlName="acno" [placeholder]="accno" id="login_accno" required>
                       </div>
+                      <div *ngIf="this.loginForm.get('acno')?.touched && this.loginForm.get('acno')?.errors" style="color: red;">Invalid account number!!</div>
+
                       <div class="input-group form-group">
                           <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-key"></i></span>
                           </div>
                           <!-- template referencing variable #pswd instead of (change)="pswdChange($event)" -->
                           <!-- two way binding-using ngModel name="pswd" [(ngModel)] = "pswd" instead of #acno -->
-                          <input type="password" class="form-control" name="pswd" [(ngModel)] = "pswd" placeholder="password" id="login_password" required>
+                          <input type="password" class="form-control" name="pswd" formControlName="pswd" placeholder="password" id="login_password" required>
                       </div>
-                      
+                      <div *ngIf="this.loginForm.get('pswd')?.touched && this.loginForm.get('pswd')?.errors" style="color: red;">Invalid password!!!</div>
                       <div class="form-group">
                           <!-- event binding (click)="login()" -->
                           <!-- template referencing variable (click)="login(acno,pswd)" instead of (click)="login()" -->
