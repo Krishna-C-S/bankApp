@@ -40,7 +40,9 @@ register(){
       this.router.navigateByUrl('')
     }
     else{
-      alert("Already Existing User...Please Log In!!!")
+      alert("Username and account number mismatch!!")
+
+      // alert("Already Existing User...Please Log In!!!")
     }
   
   }

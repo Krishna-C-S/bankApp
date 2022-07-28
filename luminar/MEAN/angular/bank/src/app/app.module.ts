@@ -7,19 +7,29 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { TransactionComponent } from './transaction/transaction.component';
+import { AnimationDemoComponent } from './animation-demo/animation-demo.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { DeleteComponent } from './delete/delete.component';
+import { HighlightDirective } from './directives/highlight.directive'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    TransactionComponent,
+    AnimationDemoComponent,
+    DeleteComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

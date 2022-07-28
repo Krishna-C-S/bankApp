@@ -9,7 +9,9 @@ import { DataService } from '../services/data.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+user:any
+lDate:any
+cAcno=""
   acno=""
   pswd=""
   amount=""
@@ -30,9 +32,16 @@ export class DashboardComponent implements OnInit {
     amount1:['',[Validators.required,Validators.pattern('[0-9]*')]]
 
   })
-  constructor(private router:Router,private ds:DataService,private fb:FormBuilder) { }
+  constructor(private router:Router,private ds:DataService,private fb:FormBuilder) { 
+    this.user=this.ds.currentUser
+    this.lDate=new Date()
+  }
 
   ngOnInit(): void {
+    if(!localStorage.getItem('currentAcno')||''){
+      alert("Please login!!")
+      this.router.navigateByUrl("")
+    }
   }
 
   deposit(){
@@ -68,5 +77,16 @@ if(result){
 else{
   alert("Invalid form")
 }
+  }
+  logout(){
+    localStorage.removeItem("currentUser")
+    localStorage.removeItem("currentAcno")
+    this.router.navigateByUrl("")
+  }
+  delete(){
+    this.cAcno=JSON.parse(localStorage.getItem("currentAcno")||'')
+  }
+  cancel(){
+    this.cAcno=""
   }
 }
